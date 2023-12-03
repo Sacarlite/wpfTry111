@@ -1,0 +1,595 @@
+﻿<Window x:Class="wpfTry.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfTry"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1600" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="White"
+        WindowState="Maximized">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <Expander
+                    HorizontalAlignment="Stretch"
+                    Background="#FF6835CF"
+                    Margin="0 0 0 5"
+                >
+                    <Expander.Header>
+                        <DockPanel >
+                            <StackPanel Orientation="Horizontal" 
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Right">
+                                <Button Content="Сбросить" Margin="0 0 10 0 " Visibility="{Binding SortedViev}" Command="{Binding ClearFilters}"/>
+                                <Button Content="Сортировать" Margin="0 0 5 0 " Background="White" Foreground="Black" Visibility="{Binding SortedViev}" Command="{Binding ProductSort}"/>
+                            </StackPanel>
+                            <TextBlock
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="Фильтр" 
+                            Foreground="White" />
+                        </DockPanel>
+                    </Expander.Header>
+                    <ListBox MaxHeight="600" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Text="Цвет" 
+                                    Foreground="Black" />
+                            </Expander.Header>
+                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                     ItemsSource="{Binding ColorcharacteristicList,UpdateSourceTrigger=PropertyChanged}" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <UniformGrid Columns="1">
+                                            <CheckBox
+                                                Content="{Binding NumName}"
+                                                IsChecked="{Binding CharacteristicFlag}"
+                                                Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" MaxWidth="40"/>
+                                        </UniformGrid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Text="Теплоустойчивость" 
+                                    Foreground="Black" />
+                            </Expander.Header>
+                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                     ItemsSource="{Binding HeatResistanceCharacteristicList,UpdateSourceTrigger=PropertyChanged}" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <UniformGrid Columns="1">
+                                            <CheckBox
+                                                Content="{Binding NumName}"
+                                                IsChecked="{Binding CharacteristicFlag}"
+                                                Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" MaxWidth="40"/>
+                                        </UniformGrid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Text="Производитель" 
+                                    Foreground="Black" />
+                            </Expander.Header>
+                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                     ItemsSource="{Binding ManufacturerCharacteristicList,UpdateSourceTrigger=PropertyChanged}" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <UniformGrid Columns="1">
+                                            <CheckBox
+                                                Content="{Binding NumName}"
+                                                IsChecked="{Binding CharacteristicFlag}"
+                                                Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" MaxWidth="40"/>
+                                        </UniformGrid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Длинна" 
+                                Foreground="Black" />
+                            </Expander.Header>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Maximum="{Binding WidthMaxValue}"
+                                    Minimum="{Binding WidthMinSliderValue}"
+                                    Value="{Binding WidthMaxSliderValue}" 
+                                    MinWidth="200"
+                                    Margin="5 15 0 0 "
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                />
+
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Max"
+                                    MinWidth="20"
+                                    Margin="5 15 0 0 "
+                                >
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="WidthMaxSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Max"   Margin="5 15 0 0 "></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Margin="5 10 0 5 "
+                                    Maximum="{Binding WidthMaxSliderValue}"
+                                    Minimum="{Binding WidthMinValue}"
+                                    Value="{Binding WidthMinSliderValue}" 
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    MinWidth="200"/>
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Min"
+                                    MinWidth="20"
+                                    Margin="5 10 0 5 "
+                                >
+
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="WidthMinSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Min"  Margin="5 10 0 5 "></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Ширина" 
+                                Foreground="Black" />
+                            </Expander.Header>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Maximum="{Binding HeightMaxValue}"
+                                    Minimum="{Binding HeightMinSliderValue}"
+                                    Value="{Binding HeightMaxSliderValue}" 
+                                    MinWidth="200"
+                                    Margin="5 15 0 0 "
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                />
+
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Max"
+                                    MinWidth="20"
+                                    Margin="5 15 0 0 "
+                                >
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="HeightMaxSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Max"   Margin="5 15 0 0 "></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Margin="5 10 0 5 "
+                                    Maximum="{Binding HeightMaxSliderValue}"
+                                    Minimum="{Binding HeightMinValue}"
+                                    Value="{Binding HeightMinSliderValue}" 
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    MinWidth="200"/>
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Min"
+                                    MinWidth="20"
+                                    Margin="5 10 0 5 "
+                                >
+
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="HeightMinSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Min"  Margin="5 10 0 5 "></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Высота" 
+                                Foreground="Black" />
+                            </Expander.Header>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Maximum="{Binding LengthMaxValue}"
+                                    Minimum="{Binding LengthMinSliderValue}"
+                                    Value="{Binding LengthMaxSliderValue}" 
+                                    MinWidth="200"
+                                    Margin="5 15 0 0 "
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                />
+
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Max"
+                                    MinWidth="20"
+                                    Margin="5 15 0 0 "
+                                >
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="LengthMaxSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Max"   Margin="5 15 0 0 "></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Margin="5 10 0 5 "
+                                    Maximum="{Binding LengthMaxSliderValue}"
+                                    Minimum="{Binding LengthMinValue}"
+                                    Value="{Binding LengthMinSliderValue}" 
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    MinWidth="200"/>
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Min"
+                                    MinWidth="20"
+                                    Margin="5 10 0 5 "
+                                >
+
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="LengthMinSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Min"  Margin="5 10 0 5 "></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Объём" 
+                                Foreground="Black" />
+                            </Expander.Header>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Maximum="{Binding VolumeMaxValue}"
+                                    Minimum="{Binding VolumeMinSliderValue}"
+                                    Value="{Binding VolumeMaxSliderValue}" 
+                                    MinWidth="200"
+                                    Margin="5 15 0 0 "
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                />
+
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Max"
+                                    MinWidth="20"
+                                    Margin="5 15 0 0 "
+                                >
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="VolumeMaxSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Max"   Margin="5 15 0 0 "></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider
+                                    Margin="5 10 0 5 "
+                                    Maximum="{Binding VolumeMaxSliderValue}"
+                                    Minimum="{Binding VolumeMinValue}"
+                                    Value="{Binding VolumeMinSliderValue}" 
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    MinWidth="200"/>
+                                    <TextBox
+                                    materialDesign:HintAssist.Hint="Min"
+                                    MinWidth="20"
+                                    Margin="5 10 0 5 "
+                                >
+                                        <TextBox.Text>
+                                            <Binding
+                                            Path="VolumeMinSliderValue"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                    <Label Content="Min"  Margin="5 10 0 5 "></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                        <ListBox HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                 ItemsSource="{Binding FilterValueList ,UpdateSourceTrigger=PropertyChanged}" 
+                        >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <UniformGrid Columns="1">
+                                        <Expander>
+                                            <Expander.Header>
+                                                <TextBlock
+                                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                    Text="{Binding CharacteristicsName}" 
+                                                    Foreground="Black" />
+                                            </Expander.Header>
+                                            <Frame MinWidth="640" Content="{Binding CurentPage}" Background="#CCCCCC"/>
+                                        </Expander>
+                                    </UniformGrid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+                        </ListBox>
+                    </ListBox>
+                   
+                </Expander>
+                <Expander
+                    HorizontalAlignment="Stretch"
+                    Background="#FF6835CF"
+                    Margin="0 0 0 5"
+                >
+                    <Expander.Header>
+                        <DockPanel >
+                            <StackPanel Orientation="Horizontal" 
+                                        VerticalAlignment="Center"
+                                        DockPanel.Dock="Right">
+                                <Button Content="Сбросить" Margin="0 0 5 0 " Command="{Binding CatalogClear}"/>
+                            </StackPanel>
+                            <TextBlock
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Каталог" 
+                                Foreground="White" />
+                        </DockPanel>
+                    </Expander.Header>
+                    <StackPanel Background="White">
+                        <ListBox HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                 ItemsSource="{Binding ProductTypes,UpdateSourceTrigger=PropertyChanged}" 
+                                 SelectedItem="{Binding  SelectedType }"
+                        >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <UniformGrid Columns="1">
+                                        <UniformGrid.Resources>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="Margin" Value="2"/>
+                                                <Setter Property="TextAlignment" Value="Center"/>
+                                            </Style>
+                                        </UniformGrid.Resources>
+                                        <TextBlock HorizontalAlignment ="Center" Text ="{Binding Name}"/>
+                                    </UniformGrid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+                        </ListBox>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox
+                            MaxWidth="400"
+                            AcceptsReturn="True"
+                            Style="{StaticResource MaterialDesignFilledTextBox}"
+                            TextWrapping="Wrap" Width="500"
+                            Margin="10"
+                            Text="{Binding SerchText}"
+                            />
+                    <Button
+                        Width="85"
+                        Content="Поиск"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                        Command="{Binding Search}"
+                        />
+                    <Label Width="354">Контакты</Label>
+                    <StackPanel>
+                        <Label Content="Админ" Margin ="5" Visibility="{Binding AdminViev}"/>
+                            <ToggleButton
+                                Margin="5"
+                        IsChecked="False"
+                        Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+                        ToolTip="MaterialDesignSwitchLightToggleButton"
+                                Command="{Binding CheckAdminViev }"
+                                Visibility="{Binding AdminViev}" />
+                        </StackPanel>
+                    </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal"  >
+                    <Button
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        ToolTip="MaterialDesignFloatingActionMiniDarkButton"
+                        Margin="15"
+                        Command="{Binding OpenBascet}"
+                        >
+                        <materialDesign:PackIcon Kind="Basket" />
+                    </Button>
+                    <Button
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        ToolTip="MaterialDesignFloatingActionMiniDarkButton"
+                        Margin="15"
+                        Command="{Binding EnterAccountCommand}"
+                        >
+                        <materialDesign:PackIcon Kind="Account" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <ScrollViewer>
+                <StackPanel>
+                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ItemsSource="{Binding Products,UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedProduct   }" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding OpenProduct}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel >
+                            <materialDesign:Card Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="140" />
+                                        <RowDefinition
+                                            Height="*" />
+                                        <RowDefinition
+                                            Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image
+                                        Width="196"
+                                        Height="140"
+                                        Source="{Binding Image}"
+                                        Stretch="UniformToFill" />
+                                            <ToggleButton
+                                        Grid.Row="0"
+                                        Margin="0,0,16,-20"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Content="{materialDesign:PackIcon Kind=Basket}"
+                                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                                        ToolTip="MaterialDesignActionLightToggleButton"
+                                        IsChecked="{Binding buscetFlag}"
+                                        />
+
+                                                <StackPanel
+                                        Grid.Row="1"
+                                        Margin="8,24,8,0">
+
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Name}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Margin="8"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            Width="30"
+                                            Padding="2,0,2,0"
+                                            materialDesign:RippleAssist.IsCentered="True"
+                                            Style="{StaticResource MaterialDesignToolButton}">
+                                            <materialDesign:PackIcon
+                                                Kind="Heart" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+                    <ListBox  >
+                        <ListBoxItem >
+
+                            <StackPanel Visibility="{Binding AdminViev}">
+            <materialDesign:Card Width="200">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                                            Height="140" />
+                        <RowDefinition
+                                            Height="*" />
+                        <RowDefinition
+                                            Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image
+                                        Width="196"
+                                        Height="140"
+                                        Stretch="UniformToFill" />
+                    <Button
+                                        Grid.Row="0"
+                                        Margin="0,0,16,-20"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding OpenAddProduct}"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}">
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                    <StackPanel
+                                        Grid.Row="1"
+                                        Margin="8,24,8,0">
+
+                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel
+                                        Grid.Row="2"
+                                        Margin="8"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                        <Button
+                                            Width="30"
+                                            Padding="2,0,2,0"
+                                            materialDesign:RippleAssist.IsCentered="True"
+                                            Style="{StaticResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon
+                                                Kind="Heart" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </StackPanel>
+                </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

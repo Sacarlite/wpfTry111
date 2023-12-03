@@ -1,0 +1,25 @@
+﻿<Page x:Class="wpfTry.Viev.Templates.ChecBoxPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:wpfTry.Viev.Templates"
+      mc:Ignorable="d" 
+      d:DesignHeight="40" d:DesignWidth="40"
+      Title="ChecBoxPage">
+    <Grid>
+        <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 ItemsSource="{Binding CharacteristicList,UpdateSourceTrigger=PropertyChanged}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <UniformGrid Columns="1">
+                        <CheckBox
+                            Content="{Binding NumName}"
+                            IsChecked="{Binding CharacteristicFlag}"
+                            Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" MaxWidth="40"/>
+                    </UniformGrid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

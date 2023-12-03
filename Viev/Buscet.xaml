@@ -1,0 +1,112 @@
+﻿<Window x:Class="wpfTry.Viev.Buscet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Buscet" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Row="0">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <Grid Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                Margin="5 10 10 0">
+                                <materialDesign:PackIcon Kind="ArrowLeft"/>
+                            </Button>
+                            <TextBox Text="Корзина" Margin="5 10 10 0"></TextBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Row="1">
+                    <StackPanel Orientation="Vertical">
+                        <materialDesign:ColorZone
+  Padding="16"
+  Mode="PrimaryMid"
+               >
+  <DockPanel>
+                            <StackPanel Orientation="Horizontal" 
+                                VerticalAlignment="Center"
+                                         DockPanel.Dock="Right">
+                                <Button Content="Распечатать" Margin="0 0 10 0 " Command="{Binding DeleteBusket}"/>
+                                    <Button Content="Сбросить" Margin="0 0 10 0 " Command="{Binding DeleteBusket}"/>
+                                    <Button Content="Оформить заказ" Background="White" Foreground="Black" Command ="{Binding AddOrder}" />
+</StackPanel>
+                            <StackPanel
+      materialDesign:RippleAssist.IsCentered="True"
+      Orientation="Horizontal">
+                                    <Label Content="Итого:" VerticalAlignment="Center" Foreground="White"/>
+                                <Label Content="В корзине " VerticalAlignment="Center" Foreground="White"/>
+                                    <Label Content="{Binding Quantity}" VerticalAlignment="Center" Foreground="White"/>
+                                <Label Content="товара " VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+  </DockPanel>
+</materialDesign:ColorZone>
+                        <ListBox x:Name="buscetBox"  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ItemsSource="{Binding BuscetProducts,UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedProduct}" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Image MaxHeight="100" Source="{Binding Product.Image}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <TextBox  IsEnabled="False" MinWidth="250" Text="{Binding Product.Name}"/>
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15 0 0 0 " >
+                                                <StackPanel Orientation="Vertical">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Command="{Binding Path = DataContext.MinusProd, Source={x:Reference Name=buscetBox  }}">
+                                                        <materialDesign:PackIcon Kind="Minus" />
+                                                    </Button>
+                                                    <Button Command="{Binding Path = DataContext.PlusProd, Source={x:Reference Name=buscetBox  }}">
+                                                        <materialDesign:PackIcon Kind="Plus" />
+                                                    </Button>
+                                                </StackPanel>
+                                                <TextBox  MaxWidth="250" Text="{Binding quantity}"></TextBox>
+                                            </StackPanel>
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                                ToolTip="MaterialDesignFloatingActionMiniDarkButton"
+                                                Command="{Binding Path = DataContext.DeleteProd, Source={x:Reference Name=buscetBox  }}">
+                                                <materialDesign:PackIcon
+                                                    Kind="DeleteForever" />
+                                            </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            </ScrollViewer>
+    </Grid>
+</Window>

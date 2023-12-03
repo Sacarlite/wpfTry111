@@ -1,0 +1,124 @@
+﻿<Window x:Class="wpfTry.Viev.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfTry.Viev"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="650" Width="800" Background="White">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding windowClosing}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+        <RowDefinition Height="1*" />
+        <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="1">
+            <materialDesign:Card>
+                <TabControl
+    VerticalContentAlignment="Bottom"
+    materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+    Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+                >
+
+                    <TabItem Width="135" Visibility="{Binding AdminViev }">
+                        <TabItem.Header>
+                            <StackPanel
+          Width="auto"
+          Height="auto">
+                                <materialDesign:PackIcon
+            Width="24"
+            Height="24"
+            HorizontalAlignment="Center"
+            Kind="AccountMultiple" />
+                                <TextBlock
+            HorizontalAlignment="Center"
+            Text="Пользователи" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Frame MinWidth="640" Content="{Binding UsersPage}" Background="White"/>
+                    </TabItem>
+                    <TabItem Width="135" Visibility="{Binding AdminViev }">
+                        <TabItem.Header>
+                            <StackPanel
+                                Width="auto"
+                                Height="auto">
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    HorizontalAlignment="Center"
+                                    Kind="CogOutline" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="характеристики" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Frame MinWidth="640" Content="{Binding CharacteristicsPage}" Background="White"/>
+                    </TabItem>
+                    <TabItem Visibility="{Binding AdminViev }">
+                        <TabItem.Header>
+                            <StackPanel
+          Width="auto"
+          Height="auto">
+                                <materialDesign:PackIcon
+            Width="24"
+            Height="24"
+            HorizontalAlignment="Center"
+            Kind="TestTubeEmpty" />
+                                <TextBlock
+            HorizontalAlignment="Center"
+            Text="Типы" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Frame MinWidth="640" Content="{Binding TypesPage}" Background="White"/>
+                    </TabItem>
+                    <TabItem Width="80" Visibility="{Binding AdminViev }">
+                        <TabItem.Header>
+                            <StackPanel
+          Width="auto"
+          Height="auto">
+                                <materialDesign:PackIcon
+            Width="24"
+            Height="24"
+            HorizontalAlignment="Center"
+            Kind="Ruler" />
+                                <TextBlock
+            HorizontalAlignment="Center"
+            Text="Еденицы " />
+                                <TextBlock
+                                    Text="измерения"  />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Frame MinWidth="640" Content="{Binding UofMPage}" Background="White"/>
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <StackPanel
+          Width="auto"
+          Height="auto">
+                                <materialDesign:PackIcon
+            Width="24"
+            Height="24"
+            HorizontalAlignment="Center"
+            Kind="TableLargePlus" />
+                                <TextBlock
+            HorizontalAlignment="Center"
+            Text="Стол" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="заказов" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Frame MinWidth="640" Content="{Binding OrdersPage}" Background="White"/>
+                    </TabItem>
+                </TabControl>
+            </materialDesign:Card>
+           
+        </Grid>
+    </Grid>
+</Window>

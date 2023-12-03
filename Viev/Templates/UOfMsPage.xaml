@@ -1,0 +1,214 @@
+﻿<Page x:Class="wpfTry.Viev.Templates.UOfMsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:wpfTry.Viev.Templates"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UOfMsPage">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+            <ListBox x:Name="UoFMList" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ItemsSource="{Binding UOfMCollection,UpdateSourceTrigger=PropertyChanged}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Viewbox>
+                            <materialDesign:Flipper>
+                                <materialDesign:Flipper.FrontContent>
+                                    <Grid
+      Width="200"
+      Height="256">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+          Height="160" />
+                                            <RowDefinition
+          Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <materialDesign:ColorZone
+        VerticalAlignment="Stretch"
+        Mode="PrimaryLight">
+                                            <materialDesign:PackIcon
+          Width="128"
+          Height="128"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Kind="Ruler" />
+                                        </materialDesign:ColorZone>
+                                        <StackPanel
+        Grid.Row="1"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+                                            <TextBlock
+          Text="{Binding Name}" />
+                                            <Button
+          Margin="0,4,0,0"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          Content="Изменить"
+          Style="{StaticResource MaterialDesignFlatButton}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Flipper.FrontContent>
+                                <materialDesign:Flipper.BackContent>
+                                    <Grid
+                    Width="200"
+                    Height="Auto">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+                        Height="Auto" />
+                                            <RowDefinition
+                        Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <materialDesign:ColorZone
+                    Padding="6"
+                    Mode="SecondaryMid">
+                                            <StackPanel
+          Orientation="Horizontal">
+                                                <Button
+                                                HorizontalAlignment="Left"
+                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                                Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                                        <materialDesign:PackIcon
+                                                  HorizontalAlignment="Right"
+                                                  Kind="ArrowLeft" />
+                                                </Button>
+                                                <TextBlock
+            Margin="8,0,0,0"
+            VerticalAlignment="Center"
+            Text="Данные" />
+                                            </StackPanel>
+                                        </materialDesign:ColorZone>
+                                        <Grid
+                        Grid.Row="1"
+                        Width="172"
+                        Margin="0,6,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBox
+                          Margin="0,12,0,0"
+                          materialDesign:HintAssist.Hint="Название"
+                          materialDesign:HintAssist.IsFloating="True"
+                          Text="{Binding Name}" />
+                                            <StackPanel
+                            Grid.Row="1"
+                            Margin="0,5,5,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                                                <Button Content="Изменить" Command="{Binding DataContext.EditCommand , Source={x:Reference Name=UoFMList}}" CommandParameter="{Binding .}"/>
+                                                <Button Content="Удалить" Command="{Binding DataContext.DeleteCommand , Source={x:Reference Name=UoFMList}}" CommandParameter="{Binding .}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </materialDesign:Flipper.BackContent>
+                            </materialDesign:Flipper>
+                        </Viewbox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Viewbox MaxWidth="200" MaxHeight="300" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <materialDesign:Flipper>
+                    <materialDesign:Flipper.FrontContent>
+                        <Grid
+      Width="200"
+      Height="256">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+          Height="160" />
+                                <RowDefinition
+          Height="*" />
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone
+        VerticalAlignment="Stretch"
+        Mode="PrimaryLight">
+                                <materialDesign:PackIcon
+          Width="128"
+          Height="128"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Kind="Ruler" />
+                            </materialDesign:ColorZone>
+                            <StackPanel
+        Grid.Row="1"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+                                <TextBlock
+          Text="Новая еденица измерения" />
+                                <Button
+          Margin="0,4,0,0"
+          Command="{x:Static materialDesign:Flipper.FlipCommand}"
+          Content="Добавить"
+          Style="{StaticResource MaterialDesignFlatButton}" />
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Flipper.FrontContent>
+                    <materialDesign:Flipper.BackContent>
+                        <Grid
+                    Width="200"
+                    Height="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                        Height="Auto" />
+                                <RowDefinition
+                        Height="*" />
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone
+                    Padding="6"
+                    Mode="SecondaryMid">
+                                <StackPanel
+          Orientation="Horizontal">
+                                    <Button
+            HorizontalAlignment="Left"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                        <materialDesign:PackIcon
+              HorizontalAlignment="Right"
+              Kind="ArrowLeft" />
+                                    </Button>
+                                    <TextBlock
+            Margin="8,0,0,0"
+            VerticalAlignment="Center"
+            Text="Данные" />
+                                </StackPanel>
+                            </materialDesign:ColorZone>
+                            <Grid
+                        Grid.Row="1"
+                        Width="172"
+                        Margin="0,6,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBox
+                          Margin="0,12,0,0"
+                          materialDesign:HintAssist.Hint="Еденица измерения"
+                          materialDesign:HintAssist.IsFloating="True"
+                          Text="{Binding NewName}" />
+                                <StackPanel
+                            Grid.Row="1"
+                            Margin="0,5,5,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                                    <Button Content="Добавить" Command="{Binding AddUoFMCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Flipper.BackContent>
+                </materialDesign:Flipper>
+            </Viewbox>
+        </StackPanel >
+        </ScrollViewer>
+    </Grid>
+</Page>
